@@ -17,14 +17,14 @@ class Root(Tk):
         self.minsize(800, 450)
 
         # Giving window a background color
-        # NMSU color is #891216
+        # NMSU color is #891216 FYI
         self.configure(background='#2C3E50')
 
         self.logo = tk.PhotoImage(file='temp.gif')
         self.pic = tk.Label(self, image=self.logo)
-        self.main_men = ttk.Button(self, text='Go back to main menu', command=self.main_screen())
+        self.main_men = ttk.Button(self, text='<- Go back to main menu', command=self.main_screen)
 
-        # Creating buttons with labels next to them and printing them with grid
+        # Creating buttons with text boxes next to them and printing them with grid
         self.option1_text_input = StringVar()
         self.option1_button = ttk.Button(self, text='Delete Table', command=self.click_option1)
         self.option1_textbox = ttk.Entry(self, width=20, textvariable=self.option1_text_input)
@@ -43,10 +43,11 @@ class Root(Tk):
         self.option3_button.grid(column=0, row=3)
         self.option3_textbox.grid(column=1, row=3)
 
-    # If a button is clicked the text will change
+    # If a button is clicked, the text will change
     def click_option1(self):
         self.option1_button.configure(text='Deleting Table ' + self.option1_text_input.get())
         self.option1_screen()
+
     def click_option2(self):
         self.option2_button.configure(text='Retrieving Data from table ' + self.option2_text_input.get() )
         self.option2_screen()
@@ -56,9 +57,13 @@ class Root(Tk):
         self.option3_screen()
 
         # Display picture when button3 is pressed
-        #self.pic.grid(column=2, row=4)
+        self.pic.grid(column=2, row=4)
 
     def main_screen(self):
+        # Deleting main menu button on screen
+        self.main_men.grid_forget()
+
+        # Displaying all option buttons and text boxes
         self.option1_button.configure(command=self.option1_screen)
         self.option1_button.grid(column=0,row=0)
         self.option1_textbox.grid(column=1,row=0)
@@ -72,6 +77,7 @@ class Root(Tk):
         self.option3_textbox.grid(column=1, row=2)
 
     def option1_screen(self):
+        # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
 
@@ -81,10 +87,10 @@ class Root(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
-        self.option1_button.grid(column=0,row=0)
-        self.option1_button.configure(command=self.main_screen)
+        self.main_men.grid(column=0, row=0)
 
     def option2_screen(self):
+        # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
 
@@ -94,10 +100,10 @@ class Root(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
-        self.option2_button.grid(column=0, row=0)
-        self.option2_button.configure(command=self.main_screen)
+        self.main_men.grid(column=0, row=0)
 
     def option3_screen(self):
+        # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
 
@@ -107,8 +113,9 @@ class Root(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
-        self.option3_button.grid(column=0, row=0)
-        self.option3_button.configure(command=self.main_screen)
+        self.main_men.grid(column=0, row=0)
+
+
 root = Root()
 
 root.mainloop()
