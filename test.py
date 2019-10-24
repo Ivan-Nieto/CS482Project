@@ -5,10 +5,10 @@ from tkinter import ttk
 
 # Using examples from YouTube videos by Parwiz Forogh
 
-class Root(Tk):
+class RootinPuten(Tk):
 
     def __init__(self):
-        super(Root, self).__init__()
+        super(RootinPuten, self).__init__()
 
         # Name of window
         self.title('CS482 Project Thing')
@@ -24,7 +24,7 @@ class Root(Tk):
         self.pic = tk.Label(self, image=self.logo)
         self.main_men = ttk.Button(self, text='<- Go back to main menu', command=self.main_screen)
 
-        # Creating buttons with text boxes next to them and printing them with grid
+        # Creating buttons with text boxes next to them and displaying them with grid
         self.option1_text_input = StringVar()
         self.option1_button = ttk.Button(self, text='Delete Table', command=self.click_option1)
         self.option1_textbox = ttk.Entry(self, width=20, textvariable=self.option1_text_input)
@@ -43,7 +43,7 @@ class Root(Tk):
         self.option3_button.grid(column=0, row=3)
         self.option3_textbox.grid(column=1, row=3)
 
-    # If a button is clicked, the text will change
+    # If a button is clicked, the text will change and a new page will be displayed
     def click_option1(self):
         self.option1_button.configure(text='Deleting Table ' + self.option1_text_input.get())
         self.option1_screen()
@@ -116,6 +116,6 @@ class Root(Tk):
         self.main_men.grid(column=0, row=0)
 
 
-root = Root()
+root = RootinPuten()
 
 root.mainloop()
