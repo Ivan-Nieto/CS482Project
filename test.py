@@ -5,14 +5,14 @@ from tkinter import ttk
 
 # Using examples from YouTube videos by Parwiz Forogh
 
-class RootinPuten(Tk):
+class RootinPutin(Tk):
 
     def __init__(self):
-        super(RootinPuten, self).__init__()
+        super(RootinPutin, self).__init__()
 
         ttk.Style().configure('TButton', padding=6, relief='flat', background='#891216')
         # Name of window
-        self.title('CS482 Project Thing')
+        self.title('CS482 Project GUI')
 
         # Min size of window
         self.minsize(800, 450)
@@ -56,6 +56,7 @@ class RootinPuten(Tk):
         self.option3_button.grid(column=0, row=3)
         self.option3_textbox.grid(column=1, row=3)
 
+
     # If a button is clicked, the text will change and a new page will be displayed
     def click_option1(self):
         self.option1_button.configure(text='Deleting Table ' + self.option1_text_input.get())
@@ -69,8 +70,9 @@ class RootinPuten(Tk):
         self.option3_button.configure(text='Calculating Average of ' + self.option3_text_input.get() )
         self.option3_screen()
 
-        # Display picture when button3 is pressed
-        self.pic.grid(column=2, row=4)
+        # Display picture when button3 is pressed...or don't, what do I care
+        # self.pic.grid(column=2, row=4)
+
 
     def main_screen(self):
         # Deleting main menu button on screen
@@ -91,49 +93,71 @@ class RootinPuten(Tk):
         self.option3_button.grid(column=0, row=2)
         self.option3_textbox.grid(column=1, row=2)
 
+
     def option1_screen(self):
         # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
-
         self.option2_button.grid_forget()
         self.option2_textbox.grid_forget()
-
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
+        
+        # Input from input box for this button 
+        # in variable self.option1_text_input
+        
+        # To change the text that is displayed in the results text box
+        # do self.result.insert(tk.END, str)
+        # where str is the string to be displayed.
+
 
     def option2_screen(self):
         # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
-
         self.option2_button.grid_forget()
         self.option2_textbox.grid_forget()
-
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
+
+        # Input from input box for this button 
+        # in variable self.option2_text_input
+        
+        # To change the text that is displayed in the results text box
+        # do self.result.insert(tk.END, str)
+        # where str is the string to be displayed.
+
 
     def option3_screen(self):
         # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
-
         self.option2_button.grid_forget()
         self.option2_textbox.grid_forget()
-
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
 
+        # Input from input box for this button 
+        # in variable self.option3_text_input
+        
+        # To change the text that is displayed in the results text box
+        # do self.result.insert(tk.END, str)
+        # where str is the string to be displayed.
+        
+        
+root = RootinPutin()
 
-root = RootinPuten()
-
+# Running GUI loop
 root.mainloop()
