@@ -21,9 +21,21 @@ class RootinPuten(Tk):
         # NMSU color is #891216 FYI
         self.configure(background='#2C3E50')
 
+        # Variable holds the text to go in the result text box
+        str = '\"Thunderbolt and lightning very very frightening me\"\n-Galileo'
+
+        # Test picture settings
         self.logo = tk.PhotoImage(file='temp.gif')
         self.pic = tk.Label(self, image=self.logo)
         self.main_men = ttk.Button(self, text='<- Go back to main menu', command=self.main_screen)
+
+        # Using https://www.python-course.eu/tkinter_text_widget.php
+        # Creating text box to print the results of the query
+        self.result = tk.Text(self, height=10, width=75)
+        self.scroll = tk.Scrollbar(self)
+        self.scroll.config(command=self.result.yview)
+        self.result.config(yscrollcommand=self.scroll.set)
+        self.result.insert(tk.END, str)
 
         # Creating buttons with text boxes next to them and displaying them with grid
         self.option1_text_input = StringVar()
@@ -63,6 +75,8 @@ class RootinPuten(Tk):
     def main_screen(self):
         # Deleting main menu button on screen
         self.main_men.grid_forget()
+        self.result.grid_forget()
+        self.pic.grid_forget()
 
         # Displaying all option buttons and text boxes
         self.option1_button.configure(command=self.option1_screen)
@@ -88,6 +102,7 @@ class RootinPuten(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
 
     def option2_screen(self):
@@ -101,6 +116,7 @@ class RootinPuten(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
 
     def option3_screen(self):
@@ -114,6 +130,7 @@ class RootinPuten(Tk):
         self.option3_button.grid_forget()
         self.option3_textbox.grid_forget()
 
+        self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
 
 
