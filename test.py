@@ -33,7 +33,7 @@ class RootinPuten(Tk):
         self.option1_textbox.grid(column=1, row=0)
 
         self.option2_text_input = StringVar()
-        self.option2_button = ttk.Button(self, text='Retreve all data from table', command=self.click_option2)
+        self.option2_button = ttk.Button(self, text='Retrieve all data from table', command=self.click_option2)
         self.option2_textbox = ttk.Entry(self, width=20, textvariable=self.option2_text_input)
         self.option2_button.grid(column=0, row=2)
         self.option2_textbox.grid(column=1, row=2)
