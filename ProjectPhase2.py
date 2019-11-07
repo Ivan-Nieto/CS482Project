@@ -1,12 +1,14 @@
 import pymysql
 import time
 
+'''
 file1 = input("\nenter the file to read from: ")
 filename = "/Users/acruz_42/Documents/NMSU 2.0/CS 482/NFL Project/" + file1
 temp = file1.split(".")
 table = temp[0]
+'''
 
-def LoadDataInsert():
+def LoadDataInsert(filename, table):
    #empty()
    try:
       connection = pymysql.connect(
@@ -29,8 +31,9 @@ def LoadDataInsert():
       print(f"Load data insertion runtime: {endtime-starttime}")
    finally:
       connection.close()
+   return 'Success'
 
-def MultiRowInsert():
+def MultiRowInsert(filename, table):
    try:
       connection = pymysql.connect(
          host = '127.0.0.1',
@@ -67,7 +70,9 @@ def MultiRowInsert():
    finally:
       connection.close()
 
-def SingleInsert():
+   return 'Success'
+
+def SingleInsert(filename, table):
    #empty()
    try:
       connection = pymysql.connect(
@@ -101,6 +106,8 @@ def SingleInsert():
       print(f"Single insertion runtime: {endtime-starttime}")
    finally:
       connection.close()
+
+   return 'Success'
 
 def empty():
    try:
@@ -140,6 +147,8 @@ def delete(tableName):
    finally:
       connection.close()
 
+   return 'Success'
+
 def retrieve(tableName):
    try:
       connection = pymysql.connect(
@@ -159,6 +168,7 @@ def retrieve(tableName):
       connection.commit()
    finally:
       connection.close()
+
    return str(string)
 
 def average(tableName,columnName):
@@ -180,8 +190,10 @@ def average(tableName,columnName):
       connection.commit()
    finally:
       connection.close()
+
    return value
 
+'''
 choice = int(input("Enter 1 for Load Data\nEnter 2 for Single Insertion\n3 for multi-row insert\nchoice = "))
 
 if choice == 1:
@@ -194,3 +206,4 @@ else:
    print("Not an option...\n")
 
 print("\nEnd of Python Script\n")
+'''

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
-
+import ProjectPhase2
 
 # Using examples from YouTube videos by Parwiz Forogh
 
@@ -51,11 +51,27 @@ class RootinPutin(Tk):
         self.option2_textbox.grid(column=1, row=2)
 
         self.option3_text_input = StringVar()
+        self.option3_text_input2 = StringVar()
         self.option3_button = ttk.Button(self, text='Average of column in table', command=self.click_option3)
         self.option3_textbox = ttk.Entry(self, width=20, textvariable=self.option3_text_input)
+        self.option3_textbox2 = ttk.Entry(self, width=20, textvariable=self.option3_text_input2)
         self.option3_button.grid(column=0, row=3)
         self.option3_textbox.grid(column=1, row=3)
+        self.option3_textbox2.grid(column=2, row=3)
 
+        self.option4_text_input = StringVar()
+        self.option4_text_input2 = StringVar()
+        self.option4_button = ttk.Button(self, text='Load Data Insert through file', command=self.click_option4)
+        self.option4_textbox = ttk.Entry(self, width=20, textvariable=self.option4_text_input)
+        self.option4_textbox2 = ttk.Entry(self, width=20, textvariable=self.option4_text_input2)
+        self.option4_button.grid(column=0, row=4)
+        self.option4_textbox.grid(column=1, row=4)
+        self.option4_textbox2.grid(column=2, row=4)
+
+        # Secondary screen buttons for choosing what method of insertion to use
+        self.option4b_button1 = ttk.Button(self, text='Load Data Insert Method', command=self.callLDI)
+        self.option4b_button2 = ttk.Button(self, text='Single Insertion Method', command=self.callSIM)
+        self.option4b_button3 = ttk.Button(self, text='Multiple-row Insertion ', command=self.callMRI)
 
     # If a button is clicked, the text will change and a new page will be displayed
     def click_option1(self):
@@ -69,6 +85,10 @@ class RootinPutin(Tk):
     def click_option3(self):
         self.option3_button.configure(text='Calculating Average of ' + self.option3_text_input.get() )
         self.option3_screen()
+
+    def click_option4(self):
+        self.option4_button.configure(text='Insert data through file ' + self.option4_text_input.get())
+        self.option4_screen()
 
         # Display picture when button3 is pressed...or don't, what do I care
         # self.pic.grid(column=2, row=4)
@@ -92,16 +112,23 @@ class RootinPutin(Tk):
         self.option3_button.configure(command=self.option3_screen)
         self.option3_button.grid(column=0, row=2)
         self.option3_textbox.grid(column=1, row=2)
+        self.option3_textbox2.grid(column=2, row=2)
 
+        self.option4_button.configure(command=self.option4_screen)
+        self.option4_button.grid(column=0, row=3)
+        self.option4_textbox.grid(column=1, row=3)
+        self.option4_textbox2.grid(column=2, row=3)
 
     def option1_screen(self):
         # Deleting all previous buttons on screen
-        self.option1_button.grid_forget()
-        self.option1_textbox.grid_forget()
-        self.option2_button.grid_forget()
-        self.option2_textbox.grid_forget()
-        self.option3_button.grid_forget()
-        self.option3_textbox.grid_forget()
+        self.deleteMainMenButtons()
+
+        # Getting query results
+        str = ProjectPhase2.delete(self.option1_text_input.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
 
         # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
@@ -112,38 +139,39 @@ class RootinPutin(Tk):
         
         # To change the text that is displayed in the results text box
         # do self.result.insert(tk.END, str)
-        # where str is the string to be displayed.
-
-
     def option2_screen(self):
         # Deleting all previous buttons on screen
-        self.option1_button.grid_forget()
-        self.option1_textbox.grid_forget()
-        self.option2_button.grid_forget()
-        self.option2_textbox.grid_forget()
-        self.option3_button.grid_forget()
-        self.option3_textbox.grid_forget()
+        self.deleteMainMenButtons()
+
+        # Getting query results
+        str = ProjectPhase2.retrieve(self.option2_text_input.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
 
         # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
         self.main_men.grid(column=0, row=0)
 
-        # Input from input box for this button 
+        # Input from input box for this button
         # in variable self.option2_text_input
-        
+
         # To change the text that is displayed in the results text box
         # do self.result.insert(tk.END, str)
         # where str is the string to be displayed.
-
+        # where str is the string to be displayed.
 
     def option3_screen(self):
         # Deleting all previous buttons on screen
-        self.option1_button.grid_forget()
-        self.option1_textbox.grid_forget()
-        self.option2_button.grid_forget()
-        self.option2_textbox.grid_forget()
-        self.option3_button.grid_forget()
-        self.option3_textbox.grid_forget()
+        self.deleteMainMenButtons()
+
+        # Getting query results
+        str = ProjectPhase2.average(self.option3_text_input.get(),self.option3_text_input2.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
 
         # Displaying main mem button and results box.
         self.result.grid(column=0, row=1)
@@ -155,8 +183,96 @@ class RootinPutin(Tk):
         # To change the text that is displayed in the results text box
         # do self.result.insert(tk.END, str)
         # where str is the string to be displayed.
-        
-        
+
+        # To change the text that is displayed in the results text box
+        # do self.result.insert(tk.END, str)
+
+    def option4_screen(self):
+        # Deleting all previous buttons on screen
+        self.deleteMainMenButtons()
+
+        # Displaying option buttons
+        self.option4b_button1.grid(column=0, row=0)
+        self.option4b_button2.grid(column=0, row=1)
+        self.option4b_button3.grid(column=0, row=2)
+
+        # Input from input box for this button
+        # in variable self.option4_text_input
+        # and self.option4_text_input2
+
+        # To change the text that is displayed in the results text box
+        # do self.result.insert(tk.END, str)
+        # where str is the string to be displayed.
+        # where str is the string to be displayed.
+
+    def deleteMainMenButtons(self):
+
+        # Deleting all previous buttons on screen
+        self.option1_button.grid_forget()
+        self.option1_textbox.grid_forget()
+        self.option2_button.grid_forget()
+        self.option2_textbox.grid_forget()
+        self.option3_button.grid_forget()
+        self.option3_textbox.grid_forget()
+        self.option3_textbox2.grid_forget()
+        self.option4_button.grid_forget()
+        self.option4_textbox.grid_forget()
+        self.option4_textbox2.grid_forget()
+    def callLDI(self):
+
+        # Deleting option buttons from screen
+        self.option4b_button1.grid_forget()
+        self.option4b_button2.grid_forget()
+        self.option4b_button3.grid_forget()
+
+        # Getting query results
+        str = ProjectPhase2.LoadDataInsert(self.option4_text_input.get(), self.option4_text_input2.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
+
+        # Displaying main mem button and results box.
+        self.result.grid(column=0, row=1)
+        self.main_men.grid(column=0, row=0)
+
+    def callMRI(self):
+
+        # Deleting option buttons from screen
+        self.option4b_button1.grid_forget()
+        self.option4b_button2.grid_forget()
+        self.option4b_button3.grid_forget()
+
+        # Getting query results
+        str = ProjectPhase2.MultiRowInsert(self.option4_text_input.get(), self.option4_text_input2.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
+
+        # Displaying main mem button and results box.
+        self.result.grid(column=0, row=1)
+        self.main_men.grid(column=0, row=0)
+
+    def callSIM(self):
+
+        # Deleting option buttons from screen
+        self.option4b_button1.grid_forget()
+        self.option4b_button2.grid_forget()
+        self.option4b_button3.grid_forget()
+
+        # Getting query results
+        str = ProjectPhase2.SingleInsert(self.option4_text_input.get(), self.option4_text_input2.get())
+
+        # Clearing text box before redefining its contents
+        self.result.delete('1.0', END)
+        self.result.insert(tk.END, str)
+
+        # Displaying main mem button and results box.
+        self.result.grid(column=0, row=1)
+        self.main_men.grid(column=0, row=0)
+
+
 root = RootinPutin()
 
 # Running GUI loop
