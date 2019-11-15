@@ -26,7 +26,7 @@ class RootinPutin(Tk):
         str = '\"Thunderbolt and lightning very very frightening me\"\n-Galileo'
 
         # Test picture settings
-        self.logo = tk.PhotoImage(file='temp.gif')
+        self.logo = tk.PhotoImage(file='/Users/acruz_42/Desktop/CS482Project/temp.gif')
         self.pic = tk.Label(self, image=self.logo)
         self.main_men = ttk.Button(self, text='<- Go back to main menu', command=self.main_screen)
 
@@ -78,7 +78,7 @@ class RootinPutin(Tk):
         self.option4b_button2 = ttk.Button(self, text='Single Insertion Method', command=self.callSIM)
         self.option4b_button3 = ttk.Button(self, text='Multiple-row Insertion ', command=self.callMRI)
 
-   
+
     def main_screen(self):
         # Deleting main menu button on screen
         self.main_men.grid_forget()
