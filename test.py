@@ -119,7 +119,7 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.delete(self.option1_text_input.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
@@ -136,7 +136,7 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.retrieve(self.option2_text_input.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
@@ -153,7 +153,7 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.average(self.option3_text_input.get(),self.option3_text_input2.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
@@ -195,7 +195,7 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.LoadDataInsert(file_name, self.option4_text_input.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
@@ -216,7 +216,7 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.MultiRowInsert(file_name, self.option4_text_input.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
@@ -237,7 +237,7 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.SingleInsert(file_name, self.option4_text_input.get())
-
+        str = '__broken__:('
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
