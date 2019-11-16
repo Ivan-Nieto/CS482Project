@@ -26,16 +26,18 @@ class RootinPutin(Tk):
         str = '\"Thunderbolt and lightning very very frightening me\"\n-Galileo'
 
         # Test picture settings
-        self.logo = tk.PhotoImage(file='/Users/acruz_42/Desktop/CS482Project/temp.gif')
-        self.pic = tk.Label(self, image=self.logo)
+        # self.logo = tk.PhotoImage(file='/Users/acruz_42/Desktop/CS482Project/temp.gif')
+        # self.pic = tk.Label(self, image=self.logo)
         self.main_men = ttk.Button(self, text='<- Go back to main menu', command=self.main_screen)
 
-        # Using https://www.python-course.eu/tkinter_text_widget.php
+        # Using https://www.python-course.eu/tkinter_text_widget.php and https://effbot.org/tkinterbook/grid.htm
         # Creating text box to print the results of the query
-        self.result = tk.Text(self, height=10, width=75)
-        self.scroll = tk.Scrollbar(self)
-        self.scroll.config(command=self.result.yview)
-        self.result.config(yscrollcommand=self.scroll.set)
+        self.result = tk.Text(self, height=10, width=85, wrap=NONE)
+        self.scroll = tk.Scrollbar(self, )
+        self.scroll2 = tk.Scrollbar(self)
+        self.scroll.config(command=self.result.xview, orient=HORIZONTAL)
+        self.scroll2.config(command=self.result.yview, orient=VERTICAL)
+        self.result.config(xscrollcommand=self.scroll.set, yscrollcommand=self.scroll2.set)
         self.result.insert(tk.END, str)
 
         # Creating buttons with text boxes next to them and displaying them with grid
@@ -80,10 +82,11 @@ class RootinPutin(Tk):
 
 
     def main_screen(self):
-        # Deleting main menu button on screen
+        # Deleting main menu button, result box and scroll bars
         self.main_men.grid_forget()
         self.result.grid_forget()
-        self.pic.grid_forget()
+        self.scroll2.grid_forget()
+        self.scroll.grid_forget()
 
         # Displaying all option buttons and text boxes
         self.option1_button.configure(command=self.option1_screen)
@@ -119,12 +122,14 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.delete(self.option1_text_input.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N+S+E+W)
+        self.scroll2.grid(column=1, row=1, sticky=N+S+E+W)
         self.result.grid(column=0, row=1)
 
     def option2_screen(self):
@@ -136,12 +141,14 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.retrieve(self.option2_text_input.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N+S+E+W)
+        self.scroll2.grid(column=1, row=1, sticky=N+S+E+W)
         self.result.grid(column=0, row=1)
 
     def option3_screen(self):
@@ -153,12 +160,14 @@ class RootinPutin(Tk):
 
         # Getting query results
         str = ProjectPhase2.average(self.option3_text_input.get(),self.option3_text_input2.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N + S + E + W)
+        self.scroll2.grid(column=1, row=1, sticky=N + S + E + W)
         self.result.grid(column=0, row=1)
 
     def option4_screen(self):
@@ -195,12 +204,14 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.LoadDataInsert(file_name, self.option4_text_input.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N + S + E + W)
+        self.scroll2.grid(column=1, row=1, sticky=N + S + E + W)
         self.result.grid(column=0, row=1)
 
     def callMRI(self):
@@ -216,12 +227,14 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.MultiRowInsert(file_name, self.option4_text_input.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N + S + E + W)
+        self.scroll2.grid(column=1, row=1, sticky=N + S + E + W)
         self.result.grid(column=0, row=1)
 
     def callSIM(self):
@@ -237,12 +250,14 @@ class RootinPutin(Tk):
         file_name = askopenfilename()
         # Getting query results
         str = ProjectPhase2.SingleInsert(file_name, self.option4_text_input.get())
-        str = '__broken__:('
+
         # Clearing text box before redefining its contents
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
         # Displaying results box.
+        self.scroll.grid(column=0, row=2, sticky=N + S + E + W)
+        self.scroll2.grid(column=1, row=1, sticky=N + S + E + W)
         self.result.grid(column=0, row=1)
 
 
