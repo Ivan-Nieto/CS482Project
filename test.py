@@ -10,8 +10,6 @@ class RootinPutin(Tk):
 
     def __init__(self):
         super(RootinPutin, self).__init__()
-
-        ttk.Style().configure('TButton', padding=6, relief='flat', background='#891216')
         # Name of window
         self.title('CS482 Project GUI')
 
