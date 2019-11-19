@@ -78,7 +78,6 @@ class RootinPutin(Tk):
         self.option4b_button2 = ttk.Button(self, text='Single Insertion Method', command=self.callSIM)
         self.option4b_button3 = ttk.Button(self, text='Multiple-row Insertion ', command=self.callMRI)
 
-
     def main_screen(self):
         # Deleting main menu button, result box and scroll bars
         self.main_men.grid_forget()
@@ -144,7 +143,7 @@ class RootinPutin(Tk):
         self.result.delete('1.0', END)
         self.result.insert(tk.END, str)
 
-        # Displaying results box.
+        # Displaying     results box.
         self.scroll.grid(column=0, row=2, sticky=N+S+E+W)
         self.scroll2.grid(column=1, row=1, sticky=N+S+E+W)
         self.result.grid(column=0, row=1)
@@ -178,7 +177,6 @@ class RootinPutin(Tk):
         self.option4b_button3.grid(column=0, row=2)
 
     def deleteMainMenButtons(self):
-
         # Deleting all previous buttons on screen
         self.option1_button.grid_forget()
         self.option1_textbox.grid_forget()
