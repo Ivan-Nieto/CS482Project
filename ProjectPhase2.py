@@ -7,6 +7,8 @@ def LoadDataInsert(filename, table):
       temp1 = temp[-1]
       temp = temp1.split(".")
       table = temp[0]
+      if "players" in table.lower():
+         table = "players"
       connection = pymysql.connect(
          host = '127.0.0.1',
          user = 'root',
@@ -35,6 +37,8 @@ def MultiRowInsert(filename, table):
       temp1 = temp[-1]
       temp = temp1.split(".")
       table = temp[0]
+      if "players" in table.lower():
+         table = "players"
       connection = pymysql.connect(
          host = '127.0.0.1',
          user = 'root',
@@ -78,6 +82,8 @@ def SingleInsert(filename, table):
       temp1 = temp[-1]
       temp = temp1.split(".")
       table = temp[0]
+      if "players" in table.lower():
+         table = "players"
       connection = pymysql.connect(
          host = '127.0.0.1',
          user = 'root',
