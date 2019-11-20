@@ -56,6 +56,7 @@ def MultiRowInsert(filename):
             for i in range(len(data)):
                 if i == 0:
                     sql = sql + "('" + data[i] + "'"
+                    print(sql)
                 elif i == len(data) - 1:
                     sql = sql + ",'" + data[i] + "'),"
                 else:
