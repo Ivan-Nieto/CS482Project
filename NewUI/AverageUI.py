@@ -54,3 +54,5 @@ def average():
 
     comboBox2 = ttk.Combobox(rightFrame, values=[], state='readonly')
     comboBox2.pack(fill=tk.X, padx=25, pady=10)
+
+    average_window.mainloop()

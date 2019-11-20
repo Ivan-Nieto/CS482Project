@@ -2,7 +2,7 @@ import pymysql
 import time
 
 
-def LoadDataInsert(filename, table):
+def LoadDataInsert(filename):
     try:
         temp = filename.split("/")
         temp1 = temp[-1]
@@ -32,7 +32,7 @@ def LoadDataInsert(filename, table):
     return 'Success'
 
 
-def MultiRowInsert(filename, table):
+def MultiRowInsert(filename):
     try:
         temp = filename.split("/")
         temp1 = temp[-1]
@@ -76,7 +76,7 @@ def MultiRowInsert(filename, table):
     return 'Success'
 
 
-def SingleInsert(filename, table):
+def SingleInsert(filename):
     try:
         temp = filename.split("/")
         temp1 = temp[-1]

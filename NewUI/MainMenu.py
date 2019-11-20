@@ -2,6 +2,7 @@ import tkinter as tk
 import DeleteUI
 import RetrieveUI
 import AverageUI
+import InsertUI
 
 root = tk.Tk()
 
@@ -26,7 +27,7 @@ averageColumnButton.pack(fill=tk.X)
 loadDataLabel = tk.Label(root, text='Load data from a specified file', bg='#2d3436', fg='#ff7675')
 loadDataLabel.pack(fill=tk.X)
 
-loadDataButton = tk.Button(root, text='Load Data', command=root.withdraw)
+loadDataButton = tk.Button(root, text='Load Data', command=InsertUI.insertion)
 loadDataButton.pack(fill=tk.X)
 
 root.mainloop()
