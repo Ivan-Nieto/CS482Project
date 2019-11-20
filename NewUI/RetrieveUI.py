@@ -3,7 +3,7 @@ from tkinter import ttk
 import ProjectPhase2 as sql
 
 
-choices = ['Games', 'Players', 'Plays', 'Teams']
+choices = ['Games', 'Players', 'Play', 'Teams']
 
 
 def retrieval():
@@ -21,7 +21,7 @@ def retrieval():
     frameRight = tk.LabelFrame(retrieval_window)
     frameRight.pack(side=tk.RIGHT)
 
-    result = tk.Text(frameRight, height=10, width=85, wrap=tk.NONE, state=tk.DISABLED)
+    result = tk.Text(frameRight, height=10, width=100, wrap=tk.NONE, state=tk.DISABLED)
     result.pack(fill=tk.BOTH)
 
     def PrintResults():

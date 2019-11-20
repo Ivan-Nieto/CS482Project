@@ -1,6 +1,7 @@
 import tkinter as tk
-from NewUI import DeleteUI
-from NewUI import RetrieveUI
+import DeleteUI
+import RetrieveUI
+import AverageUI
 
 root = tk.Tk()
 
@@ -19,7 +20,7 @@ retrieveDataButton.pack(fill=tk.X)
 averageColumnLabel = tk.Label(root, text='Get the average of a column from Table', bg='#2d3436', fg='#ff7675')
 averageColumnLabel.pack(fill=tk.X)
 
-averageColumnButton = tk.Button(root, text='Average', command=root.withdraw)
+averageColumnButton = tk.Button(root, text='Average', command=AverageUI.average)
 averageColumnButton.pack(fill=tk.X)
 
 loadDataLabel = tk.Label(root, text='Load data from a specified file', bg='#2d3436', fg='#ff7675')
