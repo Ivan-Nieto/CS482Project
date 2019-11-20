@@ -55,13 +55,8 @@ def insertion():
     stepTwoFrame.grid(row=0, column=1)
 
     stepThreeFrame = tk.LabelFrame(insert_window, text='3.Submit', bg='#2d3436', fg='#ff7675')
-    stepThreeFrame.grid(row=1, column=0, columnspan=2, pady=5 ,sticky=tk.W+tk.E)
+    stepThreeFrame.grid(row=1, column=0, columnspan=2, pady=5, sticky=tk.W+tk.E)
 
-    # resultFrame = tk.Frame(insert_window, bg='#2d3436')
-    # resultFrame.grid(row=0, column=2, rowspan=2)
-    #
-    # result = tk.Text(resultFrame, height=10, width=100, wrap=tk.NONE, state=tk.DISABLED)
-    # result.pack(expand=True, fill=tk.BOTH)
 
     submitButton = tk.Button(stepThreeFrame, text='Submit', command=lambda: SubmitFile(v.get()))
     submitButton.pack(fill=tk.BOTH)

@@ -56,13 +56,13 @@ def MultiRowInsert(filename):
             for i in range(len(data)):
                 if i == 0:
                     sql = sql + "('" + data[i] + "'"
-                    print(sql)
                 elif i == len(data) - 1:
                     sql = sql + ",'" + data[i] + "'),"
                 else:
                     sql = sql + ",'" + data[i] + "'"
         sql = sql[:-1]
         sql = sql + ";"
+        print(sql)
         cursor.execute(sql)
         f.close()
         cursor.close()
@@ -104,6 +104,7 @@ def SingleInsert(filename):
                 else:
                     sql = sql + ",'" + data[i] + "'"
             sql = sql + ");"
+            print(sql)
             cursor.execute(sql)
         f.close()
         cursor.close()
