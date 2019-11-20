@@ -5,6 +5,7 @@ import os
 
 fileName = ''
 
+
 def insertion():
     insert_window = tk.Toplevel()
     insert_window.configure(bg='#2d3436')
@@ -22,8 +23,7 @@ def insertion():
 
     def GetFile():
         global fileName
-        insert_window.filename = filedialog.askopenfilename(title='Select A File', filetypes=(('MySQL Files', '.sql'),
-                                                                                              ('All Files', '.*')))
+        insert_window.filename = filedialog.askopenfilename(title='Select A File')
         insert_window.title('File Loaded: ' + os.path.basename(insert_window.filename))
         fileName = insert_window.filename
 
@@ -56,7 +56,6 @@ def insertion():
 
     stepThreeFrame = tk.LabelFrame(insert_window, text='3.Submit', bg='#2d3436', fg='#ff7675')
     stepThreeFrame.grid(row=1, column=0, columnspan=2, pady=5, sticky=tk.W+tk.E)
-
 
     submitButton = tk.Button(stepThreeFrame, text='Submit', command=lambda: SubmitFile(v.get()))
     submitButton.pack(fill=tk.BOTH)
