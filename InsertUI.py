@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import ProjectPhase2 as sql
+import DatabaseMethods as sql
 import os
 
 fileName = ''
@@ -29,6 +29,7 @@ def insertion():
 
     def SubmitFile(selection):
         fName = fileName
+        print(fName)
         if selection is '1':
             st = sql.LoadDataInsert(fName)
             if st is 'Success':

@@ -8,6 +8,8 @@ def LoadDataInsert(filename):
         temp1 = temp[-1]
         temp = temp1.split(".")
         table = temp[0]
+        if 'players' in table.lower():
+            table = 'players'
         connection = pymysql.connect(
             host='127.0.0.1',
             user='root',
@@ -19,7 +21,7 @@ def LoadDataInsert(filename):
         cursor = connection.cursor()
         starttime = time.time()
         sql = "LOAD DATA local INFILE '" + filename + "' INTO TABLE NFL." + table + "fields terminated BY ',' lines " \
-                                                                                    "terminated BY '\n'; "
+                                                                                    "terminated BY '\n';"
         cursor.execute(sql)
         cursor.close()
         connection.commit()
@@ -38,6 +40,8 @@ def MultiRowInsert(filename):
         temp1 = temp[-1]
         temp = temp1.split(".")
         table = temp[0]
+        if 'players' in table.lower():
+            table = 'players'
         connection = pymysql.connect(
             host='127.0.0.1',
             user='root',
@@ -83,6 +87,8 @@ def SingleInsert(filename):
         temp1 = temp[-1]
         temp = temp1.split(".")
         table = temp[0]
+        if 'players' in table.lower():
+            table = 'players'
         connection = pymysql.connect(
             host='127.0.0.1',
             user='root',
@@ -179,7 +185,7 @@ def retrieve(tableName):
             output = ("{0:>0} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])) + "\n"
             for row in rows:
                 output = output + ("{0:>0} {1:>15} {2:>15} ".format(row[0], row[1], row[2])) + "\n"
-        elif (tableName.lower() == "play"):
+        elif tableName.lower() == "play":
             output = ("{0:>0} {1:>7}".format(desc[0][0], desc[1][0])) + "\n"
             for row in rows:
                 output = output + ("{0:>0} {1:>10}".format(row[0], row[1])) + "\n"

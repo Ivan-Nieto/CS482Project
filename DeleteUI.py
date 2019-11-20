@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import ProjectPhase2 as sql
+import DatabaseMethods as sql
 
 choices = ['Games', 'Players', 'Play', 'Teams']
 
