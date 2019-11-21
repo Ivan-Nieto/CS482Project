@@ -5,6 +5,8 @@ import AverageUI
 import InsertUI
 
 root = tk.Tk()
+root.resizable(False, False)
+root.title('NFL Database Management')
 
 deleteTableLabel = tk.Label(root, text='Deletion of a Table', bg='#2d3436', fg='#ff7675')
 deleteTableLabel.pack(fill=tk.X)

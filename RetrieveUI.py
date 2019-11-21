@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import DatabaseMethods as sql
+import tkinter.scrolledtext as scrolledtext
+import DatabaseMethods as dB
 
 
 choices = ['Games', 'Players', 'Play', 'Teams']
@@ -8,6 +9,8 @@ choices = ['Games', 'Players', 'Play', 'Teams']
 
 def retrieval():
     retrieval_window = tk.Toplevel()
+    retrieval_window.title('Load Given Table')
+    retrieval_window.resizable(False, False)
     retrieval_window.configure(bg='#2d3436')
 
     frameLeft = tk.LabelFrame(retrieval_window, text='Select the name of the table you wish to retrieve', bg='#2d3436',
@@ -21,14 +24,13 @@ def retrieval():
     frameRight = tk.LabelFrame(retrieval_window)
     frameRight.pack(side=tk.RIGHT)
 
-    result = tk.Text(frameRight, height=10, width=100, wrap=tk.NONE, state=tk.DISABLED)
+    result = scrolledtext.ScrolledText(frameRight, height=10, width=100, wrap=tk.NONE, state=tk.DISABLED)
     result.pack(fill=tk.BOTH)
 
     def PrintResults():
         result.config(state=tk.NORMAL)
         result.delete(1.0, tk.END)
-        st = sql.retrieve(comboBox.get().lower())
-        print(st)
+        st = dB.retrieve(comboBox.get().lower())
         result.insert(tk.END, st)
         result.config(state=tk.DISABLED)
 

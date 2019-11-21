@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import DatabaseMethods as sql
+import DatabaseMethods as dB
 import os
 
 fileName = ''
@@ -8,10 +8,11 @@ fileName = ''
 
 def insertion():
     insert_window = tk.Toplevel()
+    insert_window.title('No File Loaded...')
+    insert_window.resizable(False, False)
     insert_window.configure(bg='#2d3436')
 
     def GetMethod(selection):
-        print(selection)
         if selection is '1':
             st = 'Data-Insert'
         if selection is '2':
@@ -29,25 +30,30 @@ def insertion():
 
     def SubmitFile(selection):
         fName = fileName
-        print(fName)
+        if fName is '':
+            messagebox.showerror('ERROR', 'No file loaded!')
+            return
         if selection is '1':
-            st = sql.LoadDataInsert(fName)
+            st = dB.LoadDataInsert(fName)
             if st is 'Success':
                 messagebox.showinfo('Success', 'You successfully imported ' + os.path.basename(fName))
             else:
                 messagebox.showerror(st, os.path.basename(fName) + ' was NOT successfully imported!')
-        if selection is '2':
-            st = sql.SingleInsert(fName)
+        elif selection is '2':
+            st = dB.SingleInsert(fName)
             if st is 'Success':
                 messagebox.showinfo('Success', 'You successfully imported ' + os.path.basename(fName))
             else:
                 messagebox.showerror(st, os.path.basename(fName) + ' was NOT successfully imported!')
-        if selection is '3':
-            st = sql.MultiRowInsert(fName)
+        elif selection is '3':
+            st = dB.MultiRowInsert(fName)
             if st is 'Success':
                 messagebox.showinfo('Success', 'You successfully imported ' + os.path.basename(fName))
             else:
                 messagebox.showerror(st, os.path.basename(fName) + ' was NOT successfully imported!')
+        else:
+            messagebox.showerror('Error', 'No method chosen!')
+            return
 
     stepOneFrame = tk.LabelFrame(insert_window, text='1. Select option', bg='#2d3436', fg='#ff7675')
     stepOneFrame.grid(row=0, column=0)

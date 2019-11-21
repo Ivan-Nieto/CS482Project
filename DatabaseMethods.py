@@ -2,25 +2,35 @@ import pymysql
 import time
 
 
+def ConnectToDB():
+    return pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        password='passwd17',
+        port=3306,
+        db='NFL',
+        local_infile=1
+    )
+
+
+def getTable(fname):
+    temp = fname.split('/')
+    temp1 = temp[-1]
+    temp = temp1.split('.')
+    print(temp[0])
+    return temp[0]
+
+
 def LoadDataInsert(filename):
     try:
-        temp = filename.split("/")
-        temp1 = temp[-1]
-        temp = temp1.split(".")
-        table = temp[0]
-        if 'players' in table.lower():
-            table = 'players'
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
+        table = getTable(filename)
+        if "players" in table.lower():
+            table = "players"
+        table = table.lower()
+        connection = ConnectToDB()
         cursor = connection.cursor()
         starttime = time.time()
-        sql = "LOAD DATA local INFILE '" + filename + "' INTO TABLE NFL." + table + "fields terminated BY ',' lines " \
+        sql = "LOAD DATA local INFILE '" + filename + "' INTO TABLE NFL." + table + " fields terminated BY ',' lines " \
                                                                                     "terminated BY '\n';"
         cursor.execute(sql)
         cursor.close()
@@ -36,38 +46,33 @@ def LoadDataInsert(filename):
 
 def MultiRowInsert(filename):
     try:
-        temp = filename.split("/")
-        temp1 = temp[-1]
-        temp = temp1.split(".")
-        table = temp[0]
-        if 'players' in table.lower():
-            table = 'players'
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
+        table = getTable(filename)
+        if "players" in table.lower():
+            table = "players"
+        table = table.lower()
+        connection = ConnectToDB()
         cursor = connection.cursor()
         f = open(filename, "r")
         starttime = time.time()
-        sql = "INSERT INTO " + table + " VALUES "
-        for line in f:
+        tuples = []
+        start = 'INSERT INTO ' + table + ' VALUES '
+        for x, line in enumerate(f):
             line = line.strip("\n")
             data = line.split(",")
             for i in range(len(data)):
                 if i == 0:
-                    sql = sql + "('" + data[i] + "'"
+                    if x == 0:
+                        tuples.append(start + "('" + data[i] + "'")
+                    else:
+                        sql = "('" + data[i] + "'"
+                        tuples.append(sql)
                 elif i == len(data) - 1:
-                    sql = sql + ",'" + data[i] + "'),"
+                    sql = "'" + data[i] + "')"
+                    tuples.append(sql)
                 else:
-                    sql = sql + ",'" + data[i] + "'"
-        sql = sql[:-1]
-        sql = sql + ";"
-        print(sql)
-        cursor.execute(sql)
+                    sql = "'" + data[i] + "'"
+                    tuples.append(sql)
+        cursor.execute(','.join(tuples) + ';')
         f.close()
         cursor.close()
         connection.commit()
@@ -83,20 +88,11 @@ def MultiRowInsert(filename):
 
 def SingleInsert(filename):
     try:
-        temp = filename.split("/")
-        temp1 = temp[-1]
-        temp = temp1.split(".")
-        table = temp[0]
-        if 'players' in table.lower():
-            table = 'players'
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
+        table = getTable(filename)
+        if "players" in table.lower():
+            table = "players"
+        table = table.lower()
+        connection = ConnectToDB()
         cursor = connection.cursor()
         f = open(filename, "r")
         starttime = time.time()
@@ -110,7 +106,6 @@ def SingleInsert(filename):
                 else:
                     sql = sql + ",'" + data[i] + "'"
             sql = sql + ");"
-            print(sql)
             cursor.execute(sql)
         f.close()
         cursor.close()
@@ -127,14 +122,7 @@ def SingleInsert(filename):
 
 def delete(tableName):
     try:
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
+        connection = ConnectToDB()
         cursor = connection.cursor()
         cursor.execute("DELETE FROM " + tableName + ";")
         cursor.close()
@@ -150,45 +138,38 @@ def delete(tableName):
 def retrieve(tableName):
     output = ""
     try:
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
+        connection = ConnectToDB()
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM " + tableName + ";")
         rows = cursor.fetchall()
         desc = cursor.description
         if tableName.lower() == "players":
-            output = ("{0:>0} {1:>10} {2:>12} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(desc[0][0], desc[1][0],
+            output = ("{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(desc[0][0], desc[1][0],
                                                                                              desc[2][0], desc[3][0],
                                                                                              desc[4][0], desc[5][0],
                                                                                              desc[6][0],
                                                                                              desc[7][0])) + "\n"
             for row in rows:
                 output = output + (
-                    "{0:>0} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(row[0], row[1], row[2],
+                    "{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(row[0], row[1], row[2],
                                                                                            str(row[3]), row[4], row[5],
                                                                                            row[6], row[7])) + "\n"
         elif (tableName.lower() == "games"):
-            output = ("{0:>0} {1:>10} {2:>35} {3:>10} {4:>15} {5:>15}".format(desc[0][0], desc[1][0], desc[2][0],
+            output = ("{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(desc[0][0], desc[1][0], desc[2][0],
                                                                               desc[3][0], desc[4][0],
                                                                               desc[5][0])) + "\n"
             for row in rows:
                 output = output + (
-                    "{0:>0} {1:} {2:>35} {3:>10} {4:>15} {5:>15}".format(row[0], row[1], row[2], row[3], row[4],
-                                                                         row[5])) + "\n"
+                    "{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(row[0], str(row[1]), row[2], row[3], row[4],
+                                                                            row[5])) + "\n"
         elif (tableName.lower() == "teams"):
-            output = ("{0:>0} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])) + "\n"
+            output = ("{0:>8} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])) + "\n"
             for row in rows:
-                output = output + ("{0:>0} {1:>15} {2:>15} ".format(row[0], row[1], row[2])) + "\n"
-        elif tableName.lower() == "play":
-            output = ("{0:>0} {1:>7}".format(desc[0][0], desc[1][0])) + "\n"
+                output = output + ("{0:>8} {1:>12} {2:>15} ".format(row[0], row[1], row[2])) + "\n"
+        elif (tableName.lower() == "play"):
+            output = ("{0:>8} {1:>10}".format(desc[0][0], desc[1][0])) + "\n"
             for row in rows:
-                output = output + ("{0:>0} {1:>10}".format(row[0], row[1])) + "\n"
+                output = output + ("{0:>8} {1:>10}".format(row[0], row[1])) + "\n"
         cursor.close()
         connection.commit()
     except Exception as e:
@@ -200,18 +181,9 @@ def retrieve(tableName):
 
 def average(tableName, columnName):
     try:
-        connection = pymysql.connect(
-            host='127.0.0.1',
-            user='root',
-            password='passwd17',
-            port=3306,
-            db='NFL',
-            local_infile=1
-        )
-        command = "SELECT AVG(" + columnName + ") FROM " + tableName + ";"
-        print(command)
+        connection = ConnectToDB()
         cursor = connection.cursor()
-        cursor.execute(command)
+        cursor.execute("SELECT AVG(" + columnName + ") FROM " + tableName + ";")
         value = cursor.fetchall()
         cursor.close()
         connection.commit()

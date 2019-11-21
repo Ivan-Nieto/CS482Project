@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import DatabaseMethods as sql
+import DatabaseMethods as dB
 
 choices = ['Games', 'Players']
 options_games = ['Attendance', 'TicketRevenue']
@@ -13,7 +13,8 @@ options_players.sort()
 
 def average():
     average_window = tk.Toplevel()
-    average_window.title('Average')
+    average_window.resizable(False, False)
+    average_window.title('Find the Average')
     average_window.configure(bg='#2d3436')
 
     def ComputeAverage():
@@ -21,7 +22,7 @@ def average():
         colName = str(comboBox2.get())
 
         if tableName is not '' and colName is not '':
-            label.config(text=sql.average(tableName, colName))
+            label.config(text=dB.average(tableName, colName))
         else:
             messagebox.showerror('Error', 'No value can be NULL!')
 
