@@ -184,12 +184,14 @@ def average(tableName, columnName):
         connection = ConnectToDB()
         cursor = connection.cursor()
         cursor.execute("SELECT AVG(" + columnName + ") FROM " + tableName + ";")
-        value = cursor.fetchall()
+        tup = cursor.fetchall()
         cursor.close()
         connection.commit()
     except Exception as e:
         return str(e)
     finally:
         connection.close()
-
-    return value
+    value = str(tup)
+    value = value.split("'")
+    val = float(value[1])
+    return round(val,2)
