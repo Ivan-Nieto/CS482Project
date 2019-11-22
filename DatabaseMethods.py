@@ -136,7 +136,7 @@ def delete(tableName):
 
 
 def retrieve(tableName):
-    output = ""
+    output = []
     try:
         connection = ConnectToDB()
         cursor = connection.cursor()
@@ -144,39 +144,39 @@ def retrieve(tableName):
         rows = cursor.fetchall()
         desc = cursor.description
         if tableName.lower() == "players":
-            output = ("{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(desc[0][0], desc[1][0],
-                                                                                             desc[2][0], desc[3][0],
-                                                                                             desc[4][0], desc[5][0],
-                                                                                             desc[6][0],
-                                                                                             desc[7][0])) + "\n"
+            output.append(("{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(desc[0][0], desc[1][0],
+                                                                                            desc[2][0], desc[3][0],
+                                                                                            desc[4][0], desc[5][0],
+                                                                                            desc[6][0],
+                                                                                            desc[7][0])))
             for row in rows:
-                output = output + (
+                output.append((
                     "{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(row[0], row[1], row[2],
-                                                                                           str(row[3]), row[4], row[5],
-                                                                                           row[6], row[7])) + "\n"
+                                                                                            str(row[3]), row[4], row[5],
+                                                                                            row[6], row[7])))
         elif (tableName.lower() == "games"):
-            output = ("{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(desc[0][0], desc[1][0], desc[2][0],
-                                                                              desc[3][0], desc[4][0],
-                                                                              desc[5][0])) + "\n"
+            output.append(("{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(desc[0][0], desc[1][0], desc[2][0],
+                                                                                desc[3][0], desc[4][0],
+                                                                                desc[5][0])))
             for row in rows:
-                output = output + (
+                output.append((
                     "{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(row[0], str(row[1]), row[2], row[3], row[4],
-                                                                            row[5])) + "\n"
+                                                                            row[5])))
         elif (tableName.lower() == "teams"):
-            output = ("{0:>8} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])) + "\n"
+            output.append(("{0:>8} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])))
             for row in rows:
-                output = output + ("{0:>8} {1:>12} {2:>15} ".format(row[0], row[1], row[2])) + "\n"
+                output.append(("{0:>8} {1:>12} {2:>15} ".format(row[0], row[1], row[2])))
         elif (tableName.lower() == "play"):
-            output = ("{0:>8} {1:>10}".format(desc[0][0], desc[1][0])) + "\n"
+            output.append(("{0:>8} {1:>10}".format(desc[0][0], desc[1][0])))
             for row in rows:
-                output = output + ("{0:>8} {1:>10}".format(row[0], row[1])) + "\n"
+                output.append(("{0:>8} {1:>10}".format(row[0], row[1])))
         cursor.close()
         connection.commit()
     except Exception as e:
         return str(e)
     finally:
         connection.close()
-    return output
+    return "\n".join(output)
 
 
 def average(tableName, columnName):
