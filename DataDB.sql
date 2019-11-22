@@ -7,9 +7,9 @@ delete from teams;
 
 insert into teams values (1001, 'Donkeys', 'Denver');
 insert into teams values (2002, 'Indians', 'Washington D.C.');
-insert into teams values (3003, 'Team Brady', 'Boston');
-insert into teams values (4004, 'Not 2017 Champs', 'Atlanta');
-insert into teams values (5005, 'Leaving to Vegas', 'Oakland');
+insert into teams values (3003, 'Pirates', 'Boston');
+insert into teams values (4004, 'Whales', 'Atlanta');
+insert into teams values (5005, '69ers', 'Oakland');
 
 insert into players values(101, 'Thomas', 'Brady', 3003, 'QB', 5, 272, 500000);
 insert into players values(202, 'Odell', 'Beckham', 1001, 'WR', 7, 423, 100000);

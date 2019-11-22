@@ -144,32 +144,32 @@ def retrieve(tableName):
         rows = cursor.fetchall()
         desc = cursor.description
         if tableName.lower() == "players":
-            output.append(("{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(desc[0][0], desc[1][0],
+            output.append(("{0:>11} {1:>13} {2:>15} {3:>8} {4:>9} {5:>11} {6:>11} {7:>9}".format(desc[0][0], desc[1][0],
                                                                                             desc[2][0], desc[3][0],
                                                                                             desc[4][0], desc[5][0],
                                                                                             desc[6][0],
                                                                                             desc[7][0])))
             for row in rows:
                 output.append((
-                    "{0:>8} {1:>10} {2:>15} {3:>8} {4:>12} {5:>12} {6:>12} {7:>10}".format(row[0], row[1], row[2],
+                    "{0:>11} {1:>13} {2:>15} {3:>8} {4:>9} {5:>11} {6:>11} {7:>9}".format(row[0], row[1], row[2],
                                                                                             str(row[3]), row[4], row[5],
                                                                                             row[6], row[7])))
         elif (tableName.lower() == "games"):
-            output.append(("{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(desc[0][0], desc[1][0], desc[2][0],
+            output.append(("{0:>8} {1:>11} {2:>18} {3:>8} {4:>12} {5:>14}".format(desc[0][0], desc[1][0], desc[2][0],
                                                                                 desc[3][0], desc[4][0],
                                                                                 desc[5][0])))
             for row in rows:
                 output.append((
-                    "{0:>8} {1:>10} {2:>20} {3:>10} {4:>15} {5:>15}".format(row[0], str(row[1]), row[2], row[3], row[4],
+                    "{0:>8} {1:>11} {2:>18} {3:>8} {4:>12} {5:>14}".format(row[0], str(row[1]), row[2], row[3], row[4],
                                                                             row[5])))
         elif (tableName.lower() == "teams"):
             output.append(("{0:>8} {1:>12} {2:>15}".format(desc[0][0], desc[1][0], desc[2][0])))
             for row in rows:
                 output.append(("{0:>8} {1:>12} {2:>15} ".format(row[0], row[1], row[2])))
         elif (tableName.lower() == "play"):
-            output.append(("{0:>8} {1:>10}".format(desc[0][0], desc[1][0])))
+            output.append(("{0:>11} {1:>11}".format(desc[0][0], desc[1][0])))
             for row in rows:
-                output.append(("{0:>8} {1:>10}".format(row[0], row[1])))
+                output.append(("{0:>11} {1:>11}".format(row[0], row[1])))
         cursor.close()
         connection.commit()
     except Exception as e:
